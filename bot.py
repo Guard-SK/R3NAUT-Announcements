@@ -12,29 +12,6 @@ OWNER_IDS = [544573811899629568]
 COGS = [path[:-3] for path in os.listdir('./cogs') if path[-3:] == '.py']
 Announcements = bot.get_channel(717812987364376640)
 
-@bot.command()
-async def load(ctx, extension):
-    if ctx.message.author.id == 544573811899629568:
-        bot.load_extension(f"cogs.{extension}")
-        await ctx.send("Cog(s) loaded.")
-
-    else:
-        await ctx.send(f"You are not the owner of the bot!!! GET OUT OF HERE!!! <:akaliNani:848283879826784286>")
-
-@bot.command()
-async def unload(ctx, extension):
-    if ctx.message.author.id == 544573811899629568:
-        bot.unload_extension(f"cogs.{extension}")
-        await ctx.send("Cog(s) unloaded.")
-
-    else:
-        await ctx.send(f"You are not the owner of the bot!!! GET OUT OF HERE!!! <:akaliNani:848283879826784286>")
-
-
-for filename in os.listdir("./cogs"):
-    if filename.endswith(".py"):
-        bot.load_extension(f"cogs.{filename[:-3]}")
-
 @bot.command(name="R3NAUTonline")
 async def r3naut_online():
     embed=discord.Embed(title="R3NAUT is online", description=f"<@817768019086016543> online", 
