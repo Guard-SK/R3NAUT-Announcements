@@ -60,7 +60,7 @@ async def r3naut_offline():
 
 @bot.event
 async def on_ready():
-    print("ZAlpha ready!")
+    print("R3NAUT Announcements!")
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="https://github.com/Guard-SK/"))
 
 bot.run(os.environ['DISCORD_TOKEN']) #taking token from Heroku os.environ['DISCORD_TOKEN']
