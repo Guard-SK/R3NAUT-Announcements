@@ -17,9 +17,10 @@ async def r3naut_online(ctx):
     role = discord.utils.get(ctx.guild.roles, id=793160925543661611)
     embed=discord.Embed(title="R3NAUT is online", description=f"<@817768019086016543> online", 
                         color=0x11bb33, timestamp=datetime.utcnow())
-    embed.set_footer(text=f"<@&793160925543661611>|𝓖𝓪𝓶𝓲𝓷𝓰 𝓵𝓪𝓲𝓻")
+    embed.set_footer(text=f"𝓖𝓪𝓶𝓲𝓷𝓰 𝓵𝓪𝓲𝓻")
     channel = bot.get_channel(717812987364376640)
     await channel.send(embed=embed)
+    await channel.send("<@&793160925543661611>")
 
 @r3naut_online.error
 async def ban_command_error(ctx, exc):
@@ -32,9 +33,10 @@ async def r3naut_offline(ctx):
     embed=discord.Embed(title="R3NAUT is down", 
                         description=f"<@817768019086016543> is down because I'm developing right now. <a:hackerCD:835166860239568947> \n \n <@817768019086016543> je offline pretože robím práve na ňom. <a:hackerCD:835166860239568947>", 
                         color=0xbb1111, timestamp=datetime.utcnow())
-    embed.set_footer(text=f"<@&793160925543661611>|𝓖𝓪𝓶𝓲𝓷𝓰 𝓵𝓪𝓲𝓻")
+    embed.set_footer(text=f"𝓖𝓪𝓶𝓲𝓷𝓰 𝓵𝓪𝓲𝓻")
     channel = bot.get_channel(717812987364376640)
     await channel.send(embed=embed)
+    await channel.send("<@&793160925543661611>")
 
 @r3naut_offline.error
 async def ban_command_error(ctx, exc):
@@ -48,9 +50,10 @@ async def r3naut_hostdown(ctx):
     embed=discord.Embed(title="R3NAUT is down", 
                         description=f"<@817768019086016543> is down because of hosting servers are down. Sorry \n \n <@817768019086016543> je offline pretože hosting servery sú dole. Sorry", 
                         color=0xbb1111, timestamp=datetime.utcnow())
-    embed.set_footer(text=f"<@&793160925543661611>|𝓖𝓪𝓶𝓲𝓷𝓰 𝓵𝓪𝓲𝓻")
+    embed.set_footer(text=f"𝓖𝓪𝓶𝓲𝓷𝓰 𝓵𝓪𝓲𝓻")
     channel = bot.get_channel(717812987364376640)
     await channel.send(embed=embed)
+    await channel.send("<@&793160925543661611>")
 
 @r3naut_hostdown.error
 async def ban_command_error(ctx, exc):
@@ -60,8 +63,16 @@ async def ban_command_error(ctx, exc):
 @bot.command()
 @has_permissions(manage_guild=True)
 async def test(ctx):
-    role = discord.utils.get(ctx.guild.roles, id=793160925543661611)
-    await ctx.send(f"<@&793160925543661611>")
+    embed=discord.Embed(title="TEST", description=f"test", 
+                        color=0xbb1111, timestamp=datetime.utcnow())
+    embed.set_footer(text=f"𝓖𝓪𝓶𝓲𝓷𝓰 𝓵𝓪𝓲𝓻")
+    await ctx.send(embed=embed)
+    await ctx.send("<@&793160925543661611>")
+
+@test.error
+async def ban_command_error(ctx, exc):
+    if isinstance(exc, CheckFailure):
+        await ctx.send("Insufficient permissions to perform that task.")
 
 @bot.event
 async def on_ready():
