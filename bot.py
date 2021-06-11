@@ -79,4 +79,4 @@ async def on_ready():
     print("R3NAUT Announcements!")
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="https://github.com/Guard-SK/R3NAUT-Announcements"))
 
-bot.run(os.environ['DISCORD_TOKEN']) #taking token from Heroku os.environ['DISCORD_TOKEN']
+bot.run() #taking token from Heroku os.environ['DISCORD_TOKEN']
