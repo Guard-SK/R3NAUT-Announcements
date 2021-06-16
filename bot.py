@@ -8,75 +8,36 @@ intents = discord.Intents.default()
 intents.members = True
 prefix = "a3"
 bot = commands.Bot(command_prefix = prefix, intents=intents)
+AlistIDs = [431116940568952842, 544573811899629568]
 
-OWNER_IDS = [544573811899629568]
-
-@bot.command(name="R3NAUTonline")
-@has_permissions(manage_guild=True)
-async def r3naut_online(ctx):
-    role = discord.utils.get(ctx.guild.roles, id=793160925543661611)
-    embed=discord.Embed(title="R3NAUT is online", description=f"<@817768019086016543> online", 
-                        color=0x11bb33, timestamp=datetime.utcnow())
-    embed.set_footer(text=f"𝓖𝓪𝓶𝓲𝓷𝓰 𝓵𝓪𝓲𝓻")
-    channel = bot.get_channel(717812987364376640)
-    await channel.send(embed=embed)
-    await channel.send("<@&793160925543661611>")
-
-@r3naut_online.error
-async def ban_command_error(ctx, exc):
-    if isinstance(exc, CheckFailure):
-        await ctx.send("Insufficient permissions to perform that task.")
-
-@bot.command(name="R3NAUToffline")
-@has_permissions(manage_guild=True)
-async def r3naut_offline(ctx):
-    embed=discord.Embed(title="R3NAUT is down", 
-                        description=f"<@817768019086016543> is down because I'm developing right now. <a:hackerCD:835166860239568947> \n \n <@817768019086016543> je offline pretože robím práve na ňom. <a:hackerCD:835166860239568947>", 
-                        color=0xbb1111, timestamp=datetime.utcnow())
-    embed.set_footer(text=f"𝓖𝓪𝓶𝓲𝓷𝓰 𝓵𝓪𝓲𝓻")
-    channel = bot.get_channel(717812987364376640)
-    await channel.send(embed=embed)
-    await channel.send("<@&793160925543661611>")
-
-@r3naut_offline.error
-async def ban_command_error(ctx, exc):
-    if isinstance(exc, CheckFailure):
-        await ctx.send("Insufficient permissions to perform that task.")
-
-@bot.command(name="R3NAUThostdown")
-@has_permissions(manage_guild=True)
-async def r3naut_hostdown(ctx):
-    role = discord.utils.get(ctx.guild.roles, id=793160925543661611)
-    embed=discord.Embed(title="R3NAUT is down", 
-                        description=f"<@817768019086016543> is down because of hosting servers are down. Sorry \n \n <@817768019086016543> je offline pretože hosting servery sú dole. Sorry", 
-                        color=0xbb1111, timestamp=datetime.utcnow())
-    embed.set_footer(text=f"𝓖𝓪𝓶𝓲𝓷𝓰 𝓵𝓪𝓲𝓻")
-    channel = bot.get_channel(717812987364376640)
-    await channel.send(embed=embed)
-    await channel.send("<@&793160925543661611>")
-
-@r3naut_hostdown.error
-async def ban_command_error(ctx, exc):
-    if isinstance(exc, CheckFailure):
-        await ctx.send("Insufficient permissions to perform that task.")
+OWNER_ID = 544573811899629568
 
 @bot.command()
-@has_permissions(manage_guild=True)
-async def test(ctx):
-    embed=discord.Embed(title="TEST", description=f"test", 
-                        color=0xbb1111, timestamp=datetime.utcnow())
-    embed.set_footer(text=f"𝓖𝓪𝓶𝓲𝓷𝓰 𝓵𝓪𝓲𝓻")
-    await ctx.send(embed=embed)
-    await ctx.send("<@&793160925543661611>")
+async def load(ctx, extension):
+    if ctx.message.author.id == 544573811899629568:
+        bot.load_extension(f"cogs.{extension}")
+        await ctx.send("Cog(s) loaded.")
 
-@test.error
-async def ban_command_error(ctx, exc):
-    if isinstance(exc, CheckFailure):
-        await ctx.send("Insufficient permissions to perform that task.")
+    else:
+        await ctx.send(f"You are not the owner of the bot!!! GET OUT OF HERE!!! <:akaliNani:848283879826784286>")
+
+@bot.command()
+async def unload(ctx, extension):
+    if ctx.message.author.id == 544573811899629568:
+        bot.unload_extension(f"cogs.{extension}")
+        await ctx.send("Cog(s) unloaded.")
+
+    else:
+        await ctx.send(f"You are not the owner of the bot!!! GET OUT OF HERE!!! <:akaliNani:848283879826784286>")
+
+for filename in os.listdir("./cogs"):
+    if filename.endswith(".py"):
+        bot.load_extension(f"cogs.{filename[:-3]}")
+        print("Cog loaded")
 
 @bot.event
 async def on_ready():
     print("R3NAUT Announcements!")
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="https://github.com/Guard-SK/R3NAUT-Announcements"))
 
-bot.run() #taking token from Heroku os.environ['DISCORD_TOKEN']
+bot.run("ODUyMjM5MjQyNjgzNDgyMTEy.YMD7pQ.jgZahaBnAQj5L9QcL2pRdVcqWhs") #taking token from Heroku os.environ['DISCORD_TOKEN']
