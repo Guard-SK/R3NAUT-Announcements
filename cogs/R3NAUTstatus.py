@@ -11,7 +11,6 @@ class R3NAUTstatus(commands.Cog):
     @commands.command(name="R3NAUTonline")
     @has_permissions(manage_guild=True)
     async def r3naut_online(self, ctx):
-        role = discord.utils.get(ctx.guild.roles, id=793160925543661611)
         embed=discord.Embed(title="R3NAUT is online", description=f"<@817768019086016543> online", 
                             color=0x11bb33, timestamp=datetime.utcnow())
         embed.set_footer(text=f"𝓖𝓪𝓶𝓲𝓷𝓰 𝓵𝓪𝓲𝓻")
@@ -43,7 +42,6 @@ class R3NAUTstatus(commands.Cog):
     @commands.command(name="R3NAUThostdown")
     @has_permissions(manage_guild=True)
     async def r3naut_hostdown(self, ctx):
-        role = discord.utils.get(ctx.guild.roles, id=793160925543661611)
         embed=discord.Embed(title="R3NAUT is down", 
                             description=f"<@817768019086016543> is down because of hosting servers are down. Sorry \n \n <@817768019086016543> je offline pretože hosting servery sú dole. Sorry", 
                             color=0xbb1111, timestamp=datetime.utcnow())
@@ -68,6 +66,11 @@ class R3NAUTstatus(commands.Cog):
         channel = self.bot.get_channel(717812987364376640)
         await channel.send(embed=embed)
         await channel.send("<@&793160925543661611>")
+
+    @working_on_r3naut.error
+    async def r3naut_hostdown_error(ctx, exc):
+        if isinstance(exc, CheckFailure):
+            await ctx.send("Insufficient permissions to perform that task.")
     
 
 def setup(bot):
